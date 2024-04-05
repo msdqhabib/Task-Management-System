@@ -14,10 +14,10 @@
           {% if request.user == task.created_by %}  
           <div>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                  Delete
+                  <i class="bi bi-trash"></i>
                 </button>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-                  Edit
+                  <i class="bi bi-pencil"></i>
                 </button>
           </div>
           {% endif %}

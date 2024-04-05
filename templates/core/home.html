@@ -2,52 +2,34 @@
 
 {% block content %}
 
-<div class="payment_stats">
-    <h3 class="">Tasks Management System.</h3>
+<div>
+    <h3 class="mb-4">Dashboard</h3>
     <!-- <hr class="" style="border-color: #08845C; width: 10%; margin: auto;"> -->
 
-      <div class="row border" >
-        <div class="col-sm-3 pt-3 pb-3 task_card_1">
-            <p class="text-normal mb-1">Total Tasks </p>
+      <div class="row mb-4 w-100 justify-content-between">
+        <div class="col-sm-4">
+          <div class="shadow-sm p-3 bg-white rounded-3">
+            <p class="mb-1 fw-semibold">Total Tasks </p>
             <p><span class="text-primary"><b>{{total_tasks}}</b></span></p>
-        </div >
-        <div class="col-sm-3 border-left pt-3 pb-3 pl-3 task_card_1">
-          <p class="text-normal mb-1">Active Tasks</p>
-          <p><span class="text-primary"><b>{{pending_tasks}}</b></span></p>
+          </div>
+        </div>
+    <div class="col-sm-4">
+      <div class="shadow-sm p-3 bg-white rounded-3">
+        <p class="mb-1 fw-semibold">Incomplete</p>
+        <p><span class="text-primary"><b>{{pending_tasks}}</b></span></p>
       </div>
-    <div class="col-sm-3 border-left pt-3 pb-3 pl-3 task_card_1">
-      <p class="text-normal mb-1">Pending</p>
-      <p><span class="text-primary"><b>{{pending_tasks}}</b></span></p>
   </div>
-  <div class="col-sm-3 border-left pt-3 pb-3 pl-3 task_card_1">
-    <p class="text-normal mb-1">Completed</p>
+  <div class="col-sm-4">
+   <div class="shadow-sm p-3 bg-white rounded-3">
+    <p class="mb-1 fw-semibold">Completed</p>
     <p><span class="text-primary"><b>{{completed_tasks}}</b></span></p>
+   </div>
 </div>
 </div>
-</div>
-  
-
-  
-   
-<!-- Chartjs chart for graphical visualization -->
-<div class="payment_charts row border-right border-left border-bottom mb-5" style="margin-left: 5px; margin-right: 5px;">
-  <div class="col-md-7 pt-2 pb-3">
-    <h4 class="ml-5 mt-4">Teams Tasks Breakdown.</h4>
-    <div style="width: 100%; height: 300px;">
-      <canvas id="myChart"></canvas>
-    </div>
-  </div>
-
-  <div class="col-md-4 pb-3">
-    <h4 class="ml-5 mt-4">Tasks Status.</h4>
-    <div style="width: 100%; height: 300px;">
-      <canvas id="piChart"></canvas>
-    </div>
+<div class="shadow-sm p-3 bg-white rounded-3 w-100 p-4">
+  <canvas id="myChart4"></canvas>
   </div>
 </div>
-
-
-
 
 {% if messages %}
   <ul class="messages">
@@ -56,12 +38,6 @@
       {% endfor %}
   </ul>
 {% endif %}
-
-
-
-
-
-
 
 
 <!-- chartjs javascript coniguration -->
@@ -145,6 +121,8 @@ new Chart(ctx, {
         }]
       },
     });
+
+
 
   </script>
 

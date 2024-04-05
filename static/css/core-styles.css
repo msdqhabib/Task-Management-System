@@ -21,6 +21,12 @@ main {
     padding-left: 240px;
 }
 
+@media (max-width:992px) {
+    main {
+        padding-left: 0 !important;
+    }
+}
+
 /* Payments Section styling */
 
 /* label {
@@ -104,4 +110,22 @@ margin-right: 5px;}
 color: inherit; /* Inherit text color */
 text-decoration: none; /* Remove underline */
 cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+
+
+  
+  canvas{
+    height:400px;
+
+  }
+
+  .input-search {
+    width: 200px;
+}
+
+@media (max-with:992px) {
+    .input-search {
+        width: auto !important;
+    }   
 }
