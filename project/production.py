@@ -24,7 +24,7 @@ LOGGING = {
         "file": {
             "level": "INFO",
             "class": "logging.FileHandler",
-            "filename": "/home/ubuntu/Task-Management-System/cron.log",
+            "filename": "/home/ubuntu/Task-Management-System/error.log",
         },
     },
     "loggers": {
