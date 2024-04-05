@@ -24,7 +24,7 @@ LOGGING = {
         "file": {
             "level": "INFO",
             "class": "logging.FileHandler",
-            "filename": "/home/ubuntu/Fulfillkaro-Portal/cron.log",
+            "filename": "/home/ubuntu/Task-Management-System/cron.log",
         },
     },
     "loggers": {
