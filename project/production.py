@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 
 
-DEBUG = False
+DEBUG = True
 
 DATABASES = {
     'default': {
