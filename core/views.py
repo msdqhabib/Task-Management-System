@@ -14,9 +14,10 @@ class HomeView(View):
     def get(self, request):
 
         task_query = Task.objects.all()
-        total_tasks = task_query.count()
-        pending_tasks = task_query.filter(status='incomplete').count()
-        completed_tasks = task_query.filter(status='complete').count()
+        if task_query:
+            total_tasks = task_query.count()
+            pending_tasks = task_query.filter(status='incomplete').count()
+            completed_tasks = task_query.filter(status='complete').count()
 
         context = {
             'total_tasks': total_tasks,
