@@ -170,8 +170,8 @@
 
 <div class="container py-5">
   <div class="row">
-
-    {% for task in tasks %}  
+    {% if tasks %}
+     {% for task in tasks %}  
       <div class="col-md-4 task-cards">
             <a href="{% url 'task-update' task.id %}">
                 <div class="card kanban-card">
@@ -191,6 +191,7 @@
                 </div>
           </div>
         {% endfor %}
+      {% endif %}
       </div>
 </div>
 
