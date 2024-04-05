@@ -1,0 +1,154 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="payment_stats">
+    <h3 class="">Tasks Management System.</h3>
+    <!-- <hr class="" style="border-color: #08845C; width: 10%; margin: auto;"> -->
+
+      <div class="row border" >
+        <div class="col-sm-3 pt-3 pb-3 task_card_1">
+            <p class="text-normal mb-1">Total Tasks </p>
+            <p><span class="text-primary"><b>{{total_tasks}}</b></span></p>
+        </div >
+        <div class="col-sm-3 border-left pt-3 pb-3 pl-3 task_card_1">
+          <p class="text-normal mb-1">Active Tasks</p>
+          <p><span class="text-primary"><b>{{pending_tasks}}</b></span></p>
+      </div>
+    <div class="col-sm-3 border-left pt-3 pb-3 pl-3 task_card_1">
+      <p class="text-normal mb-1">Pending</p>
+      <p><span class="text-primary"><b>{{pending_tasks}}</b></span></p>
+  </div>
+  <div class="col-sm-3 border-left pt-3 pb-3 pl-3 task_card_1">
+    <p class="text-normal mb-1">Completed</p>
+    <p><span class="text-primary"><b>{{completed_tasks}}</b></span></p>
+</div>
+</div>
+</div>
+  
+
+  
+   
+<!-- Chartjs chart for graphical visualization -->
+<div class="payment_charts row border-right border-left border-bottom mb-5" style="margin-left: 5px; margin-right: 5px;">
+  <div class="col-md-7 pt-2 pb-3">
+    <h4 class="ml-5 mt-4">Teams Tasks Breakdown.</h4>
+    <div style="width: 100%; height: 300px;">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+
+  <div class="col-md-4 pb-3">
+    <h4 class="ml-5 mt-4">Tasks Status.</h4>
+    <div style="width: 100%; height: 300px;">
+      <canvas id="piChart"></canvas>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+{% endif %}
+
+
+
+
+
+
+
+
+<!-- chartjs javascript coniguration -->
+<script>
+    const ctx = document.getElementById('myChart');
+    const pie_chart = document.getElementById('piChart');
+    // Get the weekly payments data from Django context
+
+  
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Operations', 'Dispatching', 'Sales', 'Customer Support', 'IT'],
+        datasets: [{
+            axis: 'y',
+            label: 'Tasks Breakdown among departments',
+            data: [65, 59, 80, 81, 56],
+            fill: false,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
+        }],
+    },
+    options: {
+        indexAxis: 'y',
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                },
+
+              
+            },
+            y: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    display: true // show x-axis ticks
+                },
+              
+            }
+        }
+    }
+});
+
+
+
+
+    new Chart(pie_chart, {
+      type: 'doughnut',
+      data: {
+        labels: ['Total', 'Completed', 'Pending'],
+        datasets: [{
+          label: 'Tasks Stats',
+          data: ['{{total_tasks}}', '{{completed_tasks}}', '{{pending_tasks}}'],
+          borderWidth: 1,
+          backgroundColor: [
+            '#32cd63',
+            '#0D6EFD',
+            '#ff3333',
+            ],
+          hoverOffset: 4
+        }]
+      },
+    });
+
+  </script>
+
+
+
+{% endblock %}
+    

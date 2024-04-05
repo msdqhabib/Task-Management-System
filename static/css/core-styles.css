@@ -1,0 +1,107 @@
+body {
+    background-color: #fbfbfb; 
+}
+#sidebarMenu {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 58px 0 0; /* Height of navbar */
+    width: 240px;
+    z-index: 600;
+}
+#main-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+main {
+    margin-top: 58px;
+    padding-left: 240px;
+}
+
+/* Payments Section styling */
+
+/* label {
+display: block;
+margin-bottom: 5px;
+font-weight: bold;
+color: #333;
+} */
+
+/* Style for date inputs */
+/* .payments_stat_date {
+padding: 8px;
+width: 200px;
+border: 1px solid #ccc;
+border-radius: 5px;
+font-size: 16px;
+outline: none;
+} */
+
+/* Style for date input container */
+/* .date-input-container {
+margin-bottom: 20px;
+} */
+
+.task_card_1 {
+border-right: 1px solid #DEE2E6;
+transition: transform .5s;
+}
+
+.task_card_1:hover {
+/* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); */
+/* transition: box-shadow 0.3s ease-in-out; */
+transform: scale(1.05);
+}
+
+/* .payout_table {
+counter-reset: rowNumber;
+} */
+
+/* .payout_table th:first-child, .payout_table td:first-child {
+    display: none;
+} */
+
+/* Media screens */
+@media screen and (max-width:600px){
+.payment_charts {
+display: none;
+}
+.payout_record_filters {
+flex-wrap: wrap;
+width: 100%;
+}
+.payout_table {
+overflow-x: auto; 
+}
+}
+
+
+
+/* Tasks styling */
+
+.kanban-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    transition: box-shadow 0.2s ease-in-out;
+    margin-bottom: 20px;
+}
+.kanban-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,.16);
+}
+.card-footer {
+    background-color: transparent;
+    border-top: 1px solid #ddd;
+}
+.card-badge {
+margin-right: 5px;}
+
+
+.task-cards a {
+color: inherit; /* Inherit text color */
+text-decoration: none; /* Remove underline */
+cursor: pointer; /* Change cursor to pointer on hover */
+}
