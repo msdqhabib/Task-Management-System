@@ -170,27 +170,29 @@
 
 <div class="container py-5">
   <div class="row">
-    {% for task in tasks %}  
-    <div class="col-md-4 task-cards">
-          <a href="{% url 'task-update' task.id %}">
-              <div class="card kanban-card">
-                  <div class="card-body">
-                      <h5 class="card-title">{{task.title}}</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">Due: {{task.due_date}}</h6>
-                      <p class="card-text">{{ task.description|truncatechars:30 }}</p>
-                      <div>
-                          <span class="badge bg-primary card-badge">{{task.task_priority}}</span>
-                          <span class="badge bg-secondary card-badge">{{task.status}}</span>
-                      </div>
-                  </div>
-                  <div class="card-footer">
-                      <small class="text-muted">Assigned to: {{task.assigned_user}}</small>
-                  </div>
-                </a>
-              </div>
-        </div>
+    {% if tasks %}
+      {% for task in tasks %}  
+      <div class="col-md-4 task-cards">
+            <a href="{% url 'task-update' task.id %}">
+                <div class="card kanban-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{task.title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Due: {{task.due_date}}</h6>
+                        <p class="card-text">{{ task.description|truncatechars:30 }}</p>
+                        <div>
+                            <span class="badge bg-primary card-badge">{{task.task_priority}}</span>
+                            <span class="badge bg-secondary card-badge">{{task.status}}</span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Assigned to: {{task.assigned_user}}</small>
+                    </div>
+                  </a>
+                </div>
+          </div>
+        {% endfor %}
       {% endfor %}
-</div>
+      </div>
 </div>
 
 
