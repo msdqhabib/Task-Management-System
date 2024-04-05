@@ -19,7 +19,6 @@ class TaskView(View):
         status = request.GET.get('status', '')
         sort_by = request.GET.get('sort_by', '')
 
-        tasks = ''
         # Get tasks created by or assigned to the current user
         tasks = Task.objects.filter(
             Q(created_by=request.user) | Q(assigned_user=request.user)).order_by('task_priority')
