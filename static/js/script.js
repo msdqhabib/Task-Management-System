@@ -51,3 +51,61 @@ if (stackedChart) {
 	}
 });
 	}
+
+
+
+$(document).ready(function() {
+	// Get sorted tasks on change
+	$('#sort_by').change(function() {
+		var selectedValue = $(this).val();
+		if (selectedValue) {
+
+			// Make a GET request using AJAX
+			$.ajax({
+				url: '/task/',
+				method: 'GET',
+				data: {
+					sort_by: selectedValue
+				},
+				success: function(response) {
+
+					var tasksHtml = $(response).find('.task-container').html();
+                    // Replace the tasks section with the new content
+                    $('.task-container').html(tasksHtml);
+				},
+				error: function(xhr, errmsg, err) {
+					// Handle any errors here
+					console.log(xhr.status + ": " + xhr.responseText);
+				}
+			});
+		}
+	});
+
+	// filter tasks based on their status
+	$('#status').change(function() {
+		var selectedValue = $(this).val();
+		if (selectedValue) {
+
+			// Make a GET request using AJAX
+			$.ajax({
+				url: '/task/',
+				method: 'GET',
+				data: {
+					status: selectedValue
+				},
+				success: function(response) {
+
+					var tasksHtml = $(response).find('.task-container').html();
+                    // Replace the tasks section with the new content
+                    $('.task-container').html(tasksHtml);
+				},
+				error: function(xhr, errmsg, err) {
+					// Handle any errors here
+					console.log(xhr.status + ": " + xhr.responseText);
+				}
+			});
+		}
+	});
+
+
+});

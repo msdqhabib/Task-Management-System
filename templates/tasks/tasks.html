@@ -7,14 +7,14 @@
         <form action="{% url 'task' %}" method="get">
               <div class="d-flex flex-column-reverse flex-md-row align-items-md-center justify-content-md-between gap-4">
                 <div class="d-flex align-items-center gap-2 mb-2">
-                  <select name="sort_by" class="form-select shadow-sm" style="width: 160px;">
+                  <select id="sort_by" name="sort_by" class="form-select shadow-sm"  style="width: 160px;">
                     <option >Sortable by</option>
                     <option value="due_date">Due-Date</option>
                     <option value="priority">Priority</option>
                   </select>
                     
                     
-                    <select name="status" class="form-select shadow-sm" style="width: 160px;">
+                    <select id="status" name="status" class="form-select shadow-sm" style="width: 160px;">
                       <option value="all-tasks">All Tasks</option>
                       <option value="incomplete">In-complete Tasks</option>
                       <option value="complete">Complete Tasks</option>
@@ -23,7 +23,7 @@
  
                 <div class="d-flex align-items-center gap-2 mb-2">
                   <div class="d-flex align-items-center input-search border shadow-sm rounded-1 flex-fill flex-lg-grow-0">
-                    <input type="text" name="title" class="form-control border-0 shadow-none" placeholder="Search task" aria-label="Search username" aria-describedby="basic-addon2">
+                    <input type="text" name="task_search" class="form-control border-0 shadow-none" placeholder="Search task" aria-label="Search username" aria-describedby="basic-addon2" required>
                   <button class="btn ml-4" placeholder="Search" type="submit">
                     <i class="bi bi-search"></i>
                   </button>    
@@ -118,7 +118,7 @@
 
 
 <div class="px-4 py-5">
-  <div class="row">
+  <div class="row task-container">
     {% if tasks %}
      {% for task in tasks %}  
       <div class="col-md-6 col-xl-4 task-cards">
@@ -133,8 +133,9 @@
                             <span class="badge bg-secondary card-badge">{{task.status}}</span>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Assigned to: {{task.assigned_user}}</small>
+                    <div class="card-footer d-flex justify-content-between">
+                        <div><small class="text-muted">Assigned to: {{task.assigned_user}}</small></div>
+                        <div><small class="text-muted">Created by: {{task.created_by}}</small></div>
                     </div>
                   </a>
                 </div>

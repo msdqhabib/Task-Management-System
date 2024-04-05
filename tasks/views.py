@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.views import View
 from django.contrib import messages
@@ -15,8 +16,9 @@ class TaskView(View):
         form = TaskForm()
 
         # Query filters
-        title = request.GET.get('title', '')
+        task_search = request.GET.get('task_search', '')
         status = request.GET.get('status', '')
+
         sort_by = request.GET.get('sort_by', '')
 
         # Get tasks created by or assigned to the current user
@@ -24,18 +26,38 @@ class TaskView(View):
             Q(created_by=request.user) | Q(assigned_user=request.user)).order_by('task_priority')
 
         # Apply filters if they exist
-        if title:
-            tasks = tasks.filter(title__icontains=title)
+        if task_search:
+            tasks = tasks.filter(Q(title__icontains=task_search) |
+                                 Q(description__icontains=task_search))
+            context = {
+                'tasks': tasks,
+                'form': form
+            }
+            return render(request, 'tasks/tasks.html', context)
 
         if status and status != 'all-tasks':
+            # Apply status filters
             tasks = tasks.filter(status=status)
 
-        # Apply sorting if specified
-        if sort_by == 'due_date':
-            tasks = tasks.order_by('-due_date')
-        elif sort_by == 'priority':
-            tasks = sorted(
-                tasks, key=lambda x: self.priority_value(x.task_priority))
+            # Render HTML template with tasks data
+            tasks_html = render_to_string(
+                'tasks/tasks.html', {'tasks': tasks, 'form': form})
+
+            return HttpResponse(tasks_html)
+
+        if sort_by:
+            # Apply sorting if specified
+            if sort_by == 'due_date':
+                tasks = tasks.order_by('-due_date')
+                print(f' sort_by - {sort_by}')
+            elif sort_by == 'priority':
+                tasks = sorted(
+                    tasks, key=lambda x: self.priority_value(x.task_priority))
+            # Render HTML template with tasks data
+            tasks_html = render_to_string(
+                'tasks/tasks.html', {'tasks': tasks, 'form': form})
+
+            return HttpResponse(tasks_html)
 
         context = {
             'tasks': tasks,
