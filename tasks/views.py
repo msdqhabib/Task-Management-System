@@ -35,7 +35,7 @@ class TaskView(View):
             }
             return render(request, 'tasks/tasks.html', context)
 
-        if status and status != 'all-tasks':
+        elif status and status != 'all-tasks':
             # Apply status filters
             tasks = tasks.filter(status=status)
 
@@ -45,7 +45,7 @@ class TaskView(View):
 
             return HttpResponse(tasks_html)
 
-        if sort_by:
+        elif sort_by:
             # Apply sorting if specified
             if sort_by == 'due_date':
                 tasks = tasks.order_by('-due_date')
@@ -58,6 +58,10 @@ class TaskView(View):
                 'tasks/tasks.html', {'tasks': tasks, 'form': form})
 
             return HttpResponse(tasks_html)
+
+        else:
+            tasks = ''
+            forms = ''
 
         context = {
             'tasks': tasks,
