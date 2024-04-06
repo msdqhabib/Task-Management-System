@@ -17,14 +17,6 @@ include('base.py')
 
 # Check if development.py exists
 
-# # development_settings_file = os.path.join(BASE_DIR, 'development.py')
-# development_settings_file = os.path.join(BASE_DIR, 'development.py')
-
-# print(f'development_settings_file - {development_settings_file}')
-# isfileexist = os.path.exists(development_settings_file)
-# print(f'isfileexist - {isfileexist}')
-
-
 if isDevelopmentExists:
     include('development.py')
 else:

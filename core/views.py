@@ -7,9 +7,6 @@ from tasks.models import Task
 from tasks.forms import TaskForm
 
 
-# Create your views here.
-
-
 class HomeView(View):
     def get(self, request):
 

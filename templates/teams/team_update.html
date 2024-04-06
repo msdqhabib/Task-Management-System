@@ -1,0 +1,268 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+   
+  
+<div class="p-4">
+  <div class="pt-1">
+      <div>
+        <div class="d-flex justify-content-between">
+          <div class="task-title">
+            <input type="text" id="team_title" value="{{team.title}}" hidden>
+            <h3 class="text-primary">{{team.title}}</h3>
+          </div>
+          {% if request.user == team.created_by %}  
+          <div>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                  <i class="bi bi-trash"></i>
+                </button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <i class="bi bi-pencil"></i>
+                </button>
+          </div>
+          {% endif %}
+        </div>
+        <p class="mt-4 text-gray"> {{team.description}}</p>
+
+      <div class="card bg-white shadow-sm rounded borer border-gray">
+          <div class="card-body p-4">
+            <div class="row">
+              <div class="col-12 col-sm-3">
+                  <p class="text-black-50 mb-1">Title</p>
+                  <p>{{team.title}}</td>
+              </div>
+              <div class="col-12 col-sm-3">
+                  <p class="text-black-50 mb-1">Created On</p>
+                  <p>{{team.created_on}}</td>
+              </div>
+              <div class="col-12 col-sm-12">
+                <p class="text-black-50 mb-1">Assigned Users</p>
+                <div>
+                  {% for user in team.assigned_user.all %}
+                  <span class="badge bg-primary rounded-pill">{{ user.username }}</span>
+                  {% endfor %}
+                </div>
+            </div>
+
+            </div>
+          </div>
+        </div>
+
+<br>
+<div>
+
+
+
+<!-- Modal Box for updating the Task  and deleting the task-->
+
+<!--Edit Task Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="{% url 'team-update' team.id %}" method="post">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h3 class="modal-title text-uppercase fw-bold" id="exampleModalLabel">Update Team</h3>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+              <div class="row mb-3">
+              
+              <div class="form-group col-md-6">
+                <label for="" class="fw-normal">Title</label><br>
+                {{form.title}}
+              </div>
+              <div class="form-group col-md-6">
+                <label for="" class="fw-normal">Description</label><br>
+                {{form.description}}
+              </div>
+            </div>
+            
+            <div class="row mb-3">
+              <div class="form-group col-md-12">
+                 <label for="" class="fw-normal">Assigned To</label><br>
+                 {{form.assigned_user}}
+              </select>
+                  
+              
+              </div>
+            </div>
+            
+  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Update Team</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Delete Task Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Team</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure want to delete the team?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form action="{% url 'team-update' team.id %}" method="post">
+          {% csrf_token %}
+          <input type="text" name="delete" value="delete" hidden>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Create new Task with in Team -->
+
+<div class="w-100">
+  <h3 class="mb-4">Tasks</h5>
+    <form action="{% url 'task' %}" method="get">
+          <div class="d-flex flex-column-reverse flex-md-row align-items-md-center justify-content-md-between gap-4">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              
+            </div>
+
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div class="d-flex align-items-center input-search border shadow-sm rounded-1 flex-fill flex-lg-grow-0">
+                <input type="text" name="task_search" class="form-control border-0 shadow-none" placeholder="Search task" aria-label="Search username" aria-describedby="basic-addon2" required>
+              <button class="btn ml-4" placeholder="Search" type="submit">
+                <i class="bi bi-search"></i>
+              </button>    
+              </div>
+              <button id="create-task-btn" type="button" class="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Create Task
+              </button>
+            </div>
+          </form>
+
+          
+        </div>
+
+      
+<!-- Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+  <form action="{% url 'task' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" id="team_title" name="team" value="{{ team.id }}">
+
+    <div class="modal-header">
+      <h3 class="modal-title text-uppercase fw-bold" id="exampleModalLabel">Create New Task</h3>
+      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+          <div class="row mb-3">
+          
+          <div class="form-group col-md-6">
+            <label for="" class="fw-normal">Title</label><br>
+            {{task_form.title}}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="" class="fw-normal">Description</label><br>
+            {{task_form.description}}
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label for="" class="fw-normal">Due Date</label>
+            {{task_form.due_date}}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="" class="fw-normal">Assigned To</label><br>
+            <select id="assigned_user_id" name="assigned_user" class="form-select"></select>
+        </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label for="" class="fw-normal">Status</label>
+            {{task_form.status}}
+          </div>
+          <div class="form-group col-md-6">
+            <label for="" class="fw-normal">Task Priority</label><br>
+            {{task_form.task_priority}}
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Create Task</button>
+      </div>
+    </form>
+</div>
+</div>
+</div>
+
+          </div>
+      </div>  
+    
+    
+
+  </div>
+  
+</div>
+
+</div>
+
+
+
+<div class="px-4 py-5">
+<div class="row task-container">
+{% if team_tasks %}
+ {% for task in team_tasks %}  
+  <div class="col-md-6 col-xl-4 task-cards">
+        <a href="{% url 'task-update' task.id %}">
+            <div class="card kanban-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{task.title}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Due: {{task.due_date}}</h6>
+                    <p class="card-text">{{ task.description|truncatechars:30 }}</p>
+                    <div>
+                        <span class="badge bg-primary card-badge">{{task.task_priority}}</span>
+                        <span class="badge bg-secondary card-badge">{{task.status}}</span>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <div><small class="text-muted">Assigned to: {{task.assigned_user}}</small></div>
+                    <div><small class="text-muted">Created by: {{task.created_by}}</small></div>
+                </div>
+              </a>
+            </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+
+<!--  -->
+
+
+
+{% endblock %}
+    

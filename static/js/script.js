@@ -1,8 +1,8 @@
+
+// Chart js Configuration
 var stackedChart = document.getElementById("myChart4");
 
-
 if (stackedChart) {
-
 	
 	stackedChart.getContext('2d');
 	var myChart = new Chart(stackedChart, {
@@ -108,4 +108,34 @@ $(document).ready(function() {
 	});
 
 
+	
+
+	$("#create-task-btn").click(function() {
+		var selectedTeamId = $("#team_title").val();
+		alert(selectedTeamId)
+		$.ajax({
+			url: "/teams/",  // URL to fetch users
+			type: "GET",
+			data: {
+				team: selectedTeamId  // Pass the selected team ID
+			},
+			dataType: "json",
+			success: function(response) {
+				var assignedUserField = $("#assigned_user_id");
+				assignedUserField.empty();  // Clear existing options
+
+				// Append options for each user returned in the response
+				$.each(response.options, function(index, option) {
+					assignedUserField.append($('<option>', {
+						value: option.value,
+						text: option.label
+					}));
+				});
+			},
+			error: function(xhr, errmsg, err) {
+				console.log(errmsg);  // Handle error
+			}
+		});
+	});
+	
 });

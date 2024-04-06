@@ -49,7 +49,7 @@ class TaskView(View):
             # Apply sorting if specified
             if sort_by == 'due_date':
                 tasks = tasks.order_by('-due_date')
-                print(f' sort_by - {sort_by}')
+
             elif sort_by == 'priority':
                 tasks = sorted(
                     tasks, key=lambda x: self.priority_value(x.task_priority))
@@ -73,6 +73,12 @@ class TaskView(View):
             # Save the form data without committing to the database
             task = form.save(commit=False)
             task.created_by = request.user
+            # Assign the team ID from the form
+            task.team = form.cleaned_data['team']
+            # print(f'task.team - {task.team}')
+
+            # assigned_user_id = request.POST.get('assigned_user')
+            # print(f'assigned_user - {assigned_user_id}')
             task.save()
 
             messages.success(request, 'Task Saved Successfully')

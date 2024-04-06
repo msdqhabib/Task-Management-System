@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'authentication',
     'core',
     'tasks',
+    'teams',
 ]
 
 MIDDLEWARE = [

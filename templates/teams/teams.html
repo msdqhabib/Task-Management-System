@@ -3,33 +3,22 @@
 {% block content %}
 
     <div class="w-100">
-      <h3 class="mb-4">Tasks</h5>
-        <form action="{% url 'task' %}" method="get">
+      <h3 class="mb-4">Teams</h5>
+        <form action="{% url 'team' %}" method="get">
               <div class="d-flex flex-column-reverse flex-md-row align-items-md-center justify-content-md-between gap-4">
                 <div class="d-flex align-items-center gap-2 mb-2">
-                  <select id="sort_by" name="sort_by" class="form-select shadow-sm"  style="width: 160px;">
-                    <option >Sortable by</option>
-                    <option value="due_date">Due-Date</option>
-                    <option value="priority">Priority</option>
-                  </select>
-                    
-                    
-                    <select id="status" name="status" class="form-select shadow-sm" style="width: 160px;">
-                      <option value="all-tasks">All Tasks</option>
-                      <option value="incomplete">In-complete Tasks</option>
-                      <option value="complete">Complete Tasks</option>
-                    </select>
+
                 </div>
  
                 <div class="d-flex align-items-center gap-2 mb-2">
                   <div class="d-flex align-items-center input-search border shadow-sm rounded-1 flex-fill flex-lg-grow-0">
-                    <input type="text" name="task_search" class="form-control border-0 shadow-none" placeholder="Search task" aria-label="Search username" aria-describedby="basic-addon2" required>
+                    <input type="text" name="team_search" class="form-control border-0 shadow-none" placeholder="Search team" aria-label="Search username" aria-describedby="basic-addon2" required>
                   <button class="btn ml-4" placeholder="Search" type="submit">
                     <i class="bi bi-search"></i>
                   </button>    
                   </div>
                   <button type="button" class="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Create Task
+                    Create Team
                   </button>
                 </div>
               </form>
@@ -44,10 +33,10 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="{% url 'task' %}" method="post">
+      <form action="{% url 'team' %}" method="post">
         {% csrf_token %}
         <div class="modal-header">
-          <h3 class="modal-title text-uppercase fw-bold" id="exampleModalLabel">Create New Task</h3>
+          <h3 class="modal-title text-uppercase fw-bold" id="exampleModalLabel">Create Team</h3>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -67,31 +56,17 @@
             </div>
             
             <div class="row mb-3">
-              <div class="form-group col-md-6">
-                <label for="" class="fw-normal">Due Date</label>
-                {{form.due_date}}
-              </div>
-              <div class="form-group col-md-6">
-                <label for="" class="fw-normal">Assigned To</label><br>
+              <div class="form-group col-md-12">
+                <label for="" class="fw-normal">Assigned user</label>
                 {{form.assigned_user}}
               </div>
             </div>
             
-            <div class="row mb-3">
-              <div class="form-group col-md-6">
-                <label for="" class="fw-normal">Status</label>
-                {{form.status}}
-              </div>
-              <div class="form-group col-md-6">
-                <label for="" class="fw-normal">Task Priority</label><br>
-                {{form.task_priority}}
-              </div>
-            </div>
-  
+            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Create Task</button>
+            <button type="submit" class="btn btn-primary">Create Team</button>
           </div>
         </form>
     </div>
@@ -113,23 +88,24 @@
 
 <div class="px-4 py-5">
   <div class="row task-container">
-    {% if tasks %}
-     {% for task in tasks %}  
+    {% if teams %}
+     {% for team in teams %}  
       <div class="col-md-6 col-xl-4 task-cards">
-            <a href="{% url 'task-update' task.id %}">
+            <a href="{% url 'team-update' team.id %}">
                 <div class="card kanban-card">
                     <div class="card-body">
-                        <h5 class="card-title">{{task.title}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Due: {{task.due_date}}</h6>
-                        <p class="card-text">{{ task.description|truncatechars:30 }}</p>
+                        <h5 class="card-title">{{team.title}}</h5>
+                        <p class="card-text">{{ team.description|truncatechars:30 }}</p>
+                        <p class="card-text mt-1">Assigned users:</p>
                         <div>
-                            <span class="badge bg-primary card-badge">{{task.task_priority}}</span>
-                            <span class="badge bg-secondary card-badge">{{task.status}}</span>
+                          {% for user in team.assigned_user.all %}
+                          <span class="badge bg-primary rounded-pill">{{ user.username }}</span>
+                          {% endfor %}
                         </div>
+
                     </div>
                     <div class="card-footer d-flex justify-content-between">
-                        <div><small class="text-muted">Assigned to: {{task.assigned_user}}</small></div>
-                        <div><small class="text-muted">Created by: {{task.created_by}}</small></div>
+                        <div><small class="text-muted">Created by: {{team.created_by}}</small></div>
                     </div>
                   </a>
                 </div>

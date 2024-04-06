@@ -1,4 +1,5 @@
 from django.db import models
+from teams.models import Team
 from django.contrib.auth.models import User
 
 
@@ -11,6 +12,8 @@ class Task(models.Model):
         User, on_delete=models.CASCADE, null=True, blank=True)
     created_by = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='created_task', null=True, blank=True)
+    team = models.ForeignKey(
+        Team, on_delete=models.CASCADE, null=True, blank=True)
 
     STATUS_CHOICES = [
         ('incomplete', 'Incomplete'),
