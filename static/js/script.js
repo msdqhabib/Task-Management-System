@@ -112,7 +112,6 @@ $(document).ready(function() {
 
 	$("#create-task-btn").click(function() {
 		var selectedTeamId = $("#team_title").val();
-		alert(selectedTeamId)
 		$.ajax({
 			url: "/teams/",  // URL to fetch users
 			type: "GET",
