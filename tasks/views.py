@@ -60,10 +60,6 @@ class TaskView(View):
 
                 return HttpResponse(tasks_html)
 
-            else:
-                tasks = ''
-                forms = ''
-
             context = {
                 'tasks': tasks,
                 'form': form
