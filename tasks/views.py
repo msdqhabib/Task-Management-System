@@ -71,7 +71,7 @@ class TaskView(View):
             return render(request, 'tasks/tasks.html')
 
     def post(self, request):
-        form = TaskForm(request.POST)
+        form = TaskForm(request.POST, request.FILES)
         try:
             if form.is_valid():
 
@@ -148,7 +148,8 @@ class TaskDetailView(View):
             if not delete:
                 task_instance = get_object_or_404(Task, id=task_id)
 
-                form = TaskForm(request.POST, instance=task_instance)
+                form = TaskForm(request.POST, request.FILES,
+                                instance=task_instance)
 
                 if form.is_valid():
                     # Save the form data if valid and display success message

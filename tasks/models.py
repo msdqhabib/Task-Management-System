@@ -14,6 +14,7 @@ class Task(models.Model):
         User, on_delete=models.CASCADE, related_name='created_task', null=True, blank=True)
     team = models.ForeignKey(
         Team, on_delete=models.CASCADE, null=True, blank=True)
+    image = models.ImageField(upload_to='task_images/', null=True, blank=True)
 
     STATUS_CHOICES = [
         ('incomplete', 'Incomplete'),

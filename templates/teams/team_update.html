@@ -163,7 +163,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog">
 <div class="modal-content">
-  <form action="{% url 'task' %}" method="post">
+  <form action="{% url 'task' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="hidden" id="team_title" name="team" value="{{ team.id }}">
 
@@ -208,6 +208,12 @@
             {{task_form.task_priority}}
           </div>
         </div>
+        <div class="row mb-3">
+          <div class="form-group col-md-6">
+            <label for="" class="fw-normal">Image</label>
+            {{task_form.image}}
+          </div>
+          </div>
 
       </div>
       <div class="modal-footer">
