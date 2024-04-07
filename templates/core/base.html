@@ -53,13 +53,14 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         
-
+                        <li class="nav-item dropdown d-none d-lg-block mt-3">{{request.user}}</li>
                         <li class="nav-item dropdown d-none d-lg-block">
                             <a class="nav-link d-flex align-items-center" href="#"
                                 role="button">
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle"
                                     height="40" alt="Avatar" loading="lazy">
                             </a>
+                            
                         </li>
                         <li class="d-lg-none mt-2"><a href="{% url 'home' %}" class="list-group-item list-group-item-action border-0 {% if request.path  == '/' %} active {% endif %}">Dashboard</a></li>
                         <li class="d-lg-none"><a href="{% url 'task' %}" class="list-group-item list-group-item-action border-0 py-2 {% if '/task/' in request.path %} active {% endif %}">Tasks</a></li>
