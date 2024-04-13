@@ -27,48 +27,15 @@ main {
     }
 }
 
-/* Payments Section styling */
-
-/* label {
-display: block;
-margin-bottom: 5px;
-font-weight: bold;
-color: #333;
-} */
-
-/* Style for date inputs */
-/* .payments_stat_date {
-padding: 8px;
-width: 200px;
-border: 1px solid #ccc;
-border-radius: 5px;
-font-size: 16px;
-outline: none;
-} */
-
-/* Style for date input container */
-/* .date-input-container {
-margin-bottom: 20px;
-} */
-
 .task_card_1 {
 border-right: 1px solid #DEE2E6;
 transition: transform .5s;
 }
 
 .task_card_1:hover {
-/* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); */
-/* transition: box-shadow 0.3s ease-in-out; */
 transform: scale(1.05);
 }
 
-/* .payout_table {
-counter-reset: rowNumber;
-} */
-
-/* .payout_table th:first-child, .payout_table td:first-child {
-    display: none;
-} */
 
 /* Media screens */
 @media screen and (max-width:600px){
@@ -112,9 +79,7 @@ text-decoration: none; /* Remove underline */
 cursor: pointer; /* Change cursor to pointer on hover */
 }
 
-
-
-  
+ 
   canvas{
     height:400px;
 
